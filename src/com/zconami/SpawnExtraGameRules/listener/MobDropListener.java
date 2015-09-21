@@ -7,6 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -43,11 +44,19 @@ public class MobDropListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClickEvent(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         final Inventory clickedInventory = event.getClickedInventory();
         final ItemStack selectedItem = event.getCursor();
         if (clickedInventory instanceof MerchantInventory && isTradeRestricted(selectedItem)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onFurnaceSmelt(FurnaceSmeltEvent event) {
+        final ItemStack sourceItem = event.getSource();
+        if (isTradeRestricted(sourceItem)) {
+            setRestrictTrade(event.getResult());
         }
     }
 
