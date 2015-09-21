@@ -1,0 +1,6 @@
+name: SpawnExtraGameRules
+main: com.zconami.SpawnExtraGameRules.SpawnExtraGameRulesPlugin
+version: 1.0
+depend: [Vault]
+authors: [Autonomy]
+website: http://zconami.com/
