@@ -3,7 +3,7 @@ package com.zconami.SpawnExtraGameRules;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.zconami.SpawnExtraGameRules.listener.MobDropListener;
+import com.zconami.SpawnExtraGameRules.listener.TradeRestrictionListener;
 
 public class SpawnExtraGameRulesPlugin extends JavaPlugin {
 
@@ -17,7 +17,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
     // ATTRIBUTES
     // ===================================
 
-    private final MobDropListener mobDropListener;
+    private final TradeRestrictionListener tradeRestrictionListener;
 
     // ===================================
     // CONSTANTS
@@ -25,7 +25,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
 
     public SpawnExtraGameRulesPlugin() {
         super();
-        this.mobDropListener = new MobDropListener();
+        this.tradeRestrictionListener = new TradeRestrictionListener();
     }
 
     // ===================================
@@ -36,7 +36,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
     public void onEnable() {
         getLogger().info("=== ENABLE START ===");
         getLogger().info("Registering listeners...");
-        getServer().getPluginManager().registerEvents(mobDropListener, this);
+        getServer().getPluginManager().registerEvents(tradeRestrictionListener, this);
         getLogger().info("=== ENABLE COMPLETE ===");
     }
 
@@ -44,7 +44,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
     public void onDisable() {
         getLogger().info("=== DISABLE START ===");
         getLogger().info("Unregistering listeners...");
-        HandlerList.unregisterAll(mobDropListener);
+        HandlerList.unregisterAll(tradeRestrictionListener);
         getLogger().info("=== DISABLE COMPLETE ===");
     }
 
