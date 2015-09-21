@@ -12,6 +12,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
     // ===================================
 
     public static final String PLUGIN_NAME = "SpawnExtraGameRules";
+    public static final String SPAWN_WORLD_NAME = "spawn";
 
     // ===================================
     // ATTRIBUTES
@@ -20,7 +21,7 @@ public class SpawnExtraGameRulesPlugin extends JavaPlugin {
     private final TradeRestrictionListener tradeRestrictionListener;
 
     // ===================================
-    // CONSTANTS
+    // CONSTRUCTORS
     // ===================================
 
     public SpawnExtraGameRulesPlugin() {

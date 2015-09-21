@@ -16,6 +16,7 @@ import org.bukkit.inventory.MerchantInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.google.common.collect.Lists;
+import com.zconami.SpawnExtraGameRules.SpawnExtraGameRulesPlugin;
 
 import net.milkbowl.vault.item.Items;
 
@@ -25,10 +26,9 @@ public class TradeRestrictionListener implements Listener {
     // CONSTANTS
     // ===================================
 
-    private static final String SPAWN_WORLD_NAME = "spawn";
     private static final String UNTRADABLE_TEXT = "§c[UNTRADABLE]";
-    private static final String UNTRADABLE_LORE_1 = "You can't trade this because";
-    private static final String UNTRADABLE_LORE_2 = "that would be pretty broken.";
+    private static final List<String> UNTRADABLE_LORE = Lists.newArrayList("You can't trade this because",
+            "that would be pretty broken.");
 
     // ===================================
     // PUBLIC METHODS
@@ -38,7 +38,7 @@ public class TradeRestrictionListener implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         final LivingEntity deadEntity = event.getEntity();
         final String worldName = deadEntity.getLocation().getWorld().getName();
-        if (deadEntity instanceof Animals && worldName.equals(SPAWN_WORLD_NAME)) {
+        if (deadEntity instanceof Animals && worldName.equals(SpawnExtraGameRulesPlugin.SPAWN_WORLD_NAME)) {
             event.setDroppedExp(0);
             event.getDrops().stream().filter(this::shouldRestrictTrade).forEach(this::setRestrictTrade);
         }
@@ -76,8 +76,7 @@ public class TradeRestrictionListener implements Listener {
             return false;
         }
 
-        return itemMeta.getDisplayName().contains(UNTRADABLE_TEXT) || lore.get(0).contains(UNTRADABLE_LORE_1)
-                || lore.get(1).contains(UNTRADABLE_LORE_2);
+        return itemMeta.getDisplayName().contains(UNTRADABLE_TEXT) || UNTRADABLE_LORE.stream().anyMatch(lore::contains);
     }
 
     private boolean shouldRestrictTrade(ItemStack itemStack) {
@@ -91,7 +90,7 @@ public class TradeRestrictionListener implements Listener {
         final ItemMeta itemMeta = itemStack.getItemMeta();
         final String defaultName = Items.itemByType(itemStack.getType()).getName();
         itemMeta.setDisplayName(defaultName + " " + UNTRADABLE_TEXT);
-        itemMeta.setLore(Lists.newArrayList(UNTRADABLE_LORE_1, UNTRADABLE_LORE_2));
+        itemMeta.setLore(UNTRADABLE_LORE);
         itemStack.setItemMeta(itemMeta);
     }
 
