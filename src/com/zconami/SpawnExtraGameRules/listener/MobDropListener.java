@@ -2,7 +2,6 @@ package com.zconami.SpawnExtraGameRules.listener;
 
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -72,9 +71,6 @@ public class MobDropListener implements Listener {
     }
 
     private boolean shouldRestrictTrade(ItemStack itemStack) {
-        if (itemStack.getType() == Material.WOOL) {
-            return false;
-        }
         return true;
     }
 
