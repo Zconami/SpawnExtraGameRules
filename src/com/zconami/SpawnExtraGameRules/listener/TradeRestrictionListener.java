@@ -72,7 +72,7 @@ public class TradeRestrictionListener implements Listener {
         }
 
         final List<String> lore = itemMeta.getLore();
-        if (lore.size() < 2 || lore == null) {
+        if (lore == null || lore.size() < 2) {
             return false;
         }
 
